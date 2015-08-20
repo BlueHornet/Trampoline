@@ -1,5 +1,7 @@
-#!/bin/env php
+#!/usr/bin/php
 <?php
+
+set_include_path(__DIR__ . PATH_SEPARATOR . get_include_path());
 
 if (!isset($_ENV['ORIGINAL_RECIPIENT'])) {
     exit("Bad recipient or no recipient found");
