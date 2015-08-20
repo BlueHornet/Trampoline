@@ -1,0 +1,22 @@
+<?php
+
+/*
+*   Handle a maildir message
+*   - This script will take the message, and write it to disk
+*
+*/
+
+// Check path
+$path = $config['maildir']['path'];
+if (!is_file($path) || !is_writeable($path)) {
+    exit("Unable to write to maildir file");
+}
+
+// Get message content
+$content = '';
+$stream = fopen('php://stdin', 'r');
+while ($line = fgets($stream)) {
+    $content .= $stream;
+}
+
+file_put_contents($path, $content . "\n\n", FILE_APPEND);
