@@ -21,7 +21,16 @@ class Maildir {
         $opts = $config['Maildir'];
 
         // Check path
-        if (!isset($opts['path']) || !is_file($opts['path']) || !is_writeable($opts['path'])) {
+        if (!isset($opts['path'])) {
+            throw new MailDirException("Maildir path not specified");
+        }
+        if (!is_file($opts['path'])) {
+            // Attempt to create
+            if (touch($opts['path']) !== true) {
+                throw new MailDirException("Unable to create maildir file");
+            }
+        }
+        if (!is_writeable($opts['path'])) {
             throw new MailDirException("Unable to write to maildir file");
         }
         $this->_maildirFile = $opts['path'];

@@ -1,0 +1,6 @@
+# Ignore local config files
+trampoline.ini
+
+# Ignore composer stuff
+composer.lock
+vendor/
