@@ -2,6 +2,9 @@
 A collection of scripts to generate activity based on incoming mail. These scripts are designed to be executed via postfix.
 
 # Prerequisites
-This package currently requires PHP 5 (>5.3) and the MailParse extension.
+This package currently requires PHP 5 (>5.3.23) and Composer. It uses Composer to fetch the Zend\Mail package, which is used to parse and send relay messages. After cloning this repo, you'll need to issue the following commands to get everything set up properly.
 
-TODO: List instructions for installing MailParse on Ubuntu (http://www.mkfoster.com/2009/01/04/how-to-install-a-php-pecl-extensionmodule-on-ubuntu/)
+```
+composer install
+```
+
