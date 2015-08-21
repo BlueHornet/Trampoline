@@ -1,9 +1,0 @@
-<?php
-
-/*
-*   Handle a relay message
-*   - This script will take the message, and send
-*   - it back to the BlueHornet SMTP relay
-*
-*/
-

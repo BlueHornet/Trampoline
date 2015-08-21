@@ -1,7 +1,0 @@
-#!/usr/bin/env python
-
-## Mail handler for list-unsubscribe requests
-
-import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
