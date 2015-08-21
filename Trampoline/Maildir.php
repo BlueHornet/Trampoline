@@ -45,6 +45,8 @@ class Maildir {
         if (!$stream) {
             throw new MailDirException("Unable to open input stream");
         }
+        // The first line in the stream is a postfix message, so we discard it
+        fgets($stream);
         while ($line = fgets($stream)) {
             $content .= $line;
         }

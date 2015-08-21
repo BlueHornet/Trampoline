@@ -4,3 +4,6 @@ trampoline.ini
 # Ignore composer stuff
 composer.lock
 vendor/
+
+# Ignore test messages we may be using
+test/*.msg

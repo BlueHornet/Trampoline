@@ -32,17 +32,16 @@ class Relay {
         // Read the contents of the message in from the buffer
         $src = '';
         $stream = fopen($this->_emailSource, 'r');
+        // The first line in the stream is a postfix message, so we discard it
+        fgets($stream);
         while ($line = fgets($stream)) {
             $src .= $line;
         }
         fclose($stream);
-        // Create a MailParse object with our message
-        $email = mailparse_msg_create();
-        mailparse_msg_parse($email, $src);
-        $structure = mailparse_msg_get_structure($email);
-        foreach ($structure as $partId) {
-            $part = mailparse_msg_get_part($email, $partId);
-            var_dump($part['headers']);
-        }
+
+        // Create a Zend\Mail\Message object with our message
+        $email = new \Zend\Mail\Message(array('raw' => $src), $src);
+        $headers = $email->getHeaders();
+        var_dump($headers->toArray());
     }
 }
