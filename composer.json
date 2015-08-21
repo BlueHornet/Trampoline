@@ -1,6 +1,5 @@
 {
 	"name": "bluehornet/trampoline",
-	"version": "0.1.0",
 	"license": "BSD-3-Clause",
 	"authors": [
 		{
@@ -18,7 +17,6 @@
 	],
 	"require": {
 		"php": ">=5.3.23",
-		"zendframework/zend-mime": "^2.5",
 		"zendframework/zend-mail": "^2.5"
 	},
 	"autoload": {
