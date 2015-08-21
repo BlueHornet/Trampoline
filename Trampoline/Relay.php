@@ -40,8 +40,16 @@ class Relay {
         fclose($stream);
 
         // Create a Zend\Mail\Message object with our message
-        $email = new \Zend\Mail\Message(array('raw' => $src), $src);
-        $headers = $email->getHeaders();
-        var_dump($headers->toArray());
+        $email = \Zend\Mail\Message::fromString($src);
+        $from = $email->getHeaders()->get('From')->getAddressList()->current()->getEmail();
+        $email->setTo($from);
+
+        // Create our transport
+        $transport = new \Zend\Mail\Transport\Smtp();
+        $options = new \Zend\Mail\Transport\SmtpOptions(array(
+            'host' => $this->_opts['smtp_server'],
+        ));
+        $transport->setOptions($options);
+        $transport->send($email);
     }
 }
