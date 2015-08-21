@@ -17,9 +17,6 @@ if (!is_file(__DIR__.'/trampoline.ini')) {
     exit($message);
 }
 $config = parse_ini_file(__DIR__.'/trampoline.ini', true);
-$config['Server'] = $_SERVER;
-$config['Server']['ORIGINAL_RECIPIENT_USER'] = $user;
-$config['Server']['ORIGINAL_RECIPIENT_DOMAIN'] = $domain;
 
 if (!isset($_SERVER['ORIGINAL_RECIPIENT'])) {
     $message = "Bad recipient or no recipient found: " . __LINE__;
@@ -28,6 +25,9 @@ if (!isset($_SERVER['ORIGINAL_RECIPIENT'])) {
 }
 
 list($user, $domain) = explode('@', $_SERVER['ORIGINAL_RECIPIENT']);
+$config['Server'] = $_SERVER;
+$config['Server']['ORIGINAL_RECIPIENT_USER'] = $user;
+$config['Server']['ORIGINAL_RECIPIENT_DOMAIN'] = $domain;
 
 // handle user plus addressing
 list($class) = explode('+', $user);
@@ -38,5 +38,12 @@ if (isset($config['debug']) && $config['debug'] == true) {
 }
 
 $myClass = "BlueHornet\\Trampoline\\$class";
+
+if (!class_exists($myClass)) {
+    $message = "No handler found for user: $class";
+    error_log($message);
+    exit($message);
+}
+
 $handler = new $myClass($config);
 $handler->run();
